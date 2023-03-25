@@ -1,12 +1,15 @@
 import { TextField, Button, Box, Typography } from '@mui/material';
 import { useState, useEffect } from 'react';
 import axios from 'axios'
+import { useNavigate, useLocation } from 'react-router-dom'
 
 function LoginForm() {
+    const location = useLocation();
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [errorMessage, setErrorMessage] = useState('')
+    const navigate = useNavigate()
 
     useEffect(() => {
         if (isSubmitting) {
@@ -27,6 +30,7 @@ function LoginForm() {
 
             const token = response.data.token;
             console.log(token)
+            navigate("/home")
         } catch (error) {
             console.error(error)
             setErrorMessage("Usuario o contraseña incorrectos")
